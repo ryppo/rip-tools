@@ -46,6 +46,7 @@ public class RipTools extends IApplication {
 
     @Override
     public void prepare() {
+        view = new RipToolsMaster_view();
         view.addWindowListener(getShutDownListener());
         //register provided tools
         view.registerTool(new NoWinScr_tool());
