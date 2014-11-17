@@ -1,7 +1,8 @@
 package org.y3.riptools.app;
 
 import java.awt.Image;
-import org.y3.riptools.util.ImageHelper;
+import org.y3.commons.swing.ImageHelper;
+import static org.y3.commons.swing.ImageHelper.getImage;
 
 /** 
  * <p>Title: org.y3.riptools.app - IconDictionary</p>
@@ -9,8 +10,7 @@ import org.y3.riptools.util.ImageHelper;
  * <p>Copyright: 2014</p>
  * <p>Organisation: IT-Happens.de</p>
  * @author Christian.Rybotycky
- * @version $Id$
-*/
+ */
 public class IconDictionary extends ImageHelper {
     
     public static final String IMAGE_PATH = "org/y3/riptools/";

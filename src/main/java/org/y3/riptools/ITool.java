@@ -12,8 +12,7 @@ import org.apache.log4j.Logger;
  * <p>Copyright: 2014</p>
  * <p>Organisation: IT-Happens.de</p>
  * @author Christian.Rybotycky
- * @version $Id$
-*/
+ */
 public abstract class ITool {
     
     private Properties userProperties;

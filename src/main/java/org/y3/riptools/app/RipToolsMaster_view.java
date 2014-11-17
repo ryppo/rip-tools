@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import net.java.dev.designgridlayout.DesignGridLayout;
+import org.y3.commons.lang.PropertiesHelper;
 import org.y3.riptools.ITool;
 import org.y3.riptools.RipTools;
-import org.y3.riptools.util.PropertiesHelper;
 
 /** 
  * <p>Title: org.y3.riptools.app - RipToolsMaster_view</p>
@@ -16,8 +16,7 @@ import org.y3.riptools.util.PropertiesHelper;
  * <p>Copyright: 2014</p>
  * <p>Organisation: IT-Happens.de</p>
  * @author Christian.Rybotycky
- * @version $Id$
-*/
+ */
 public class RipToolsMaster_view extends JFrame {
     
     int defaultWindowHeight = 500;
@@ -40,9 +39,9 @@ public class RipToolsMaster_view extends JFrame {
         }
         if (!tools.contains(tool)) {
             tools.add(tool);
-            tool.setUserProperties(RipTools.USER_PROPERTIES);
-            tool.setLOG(RipTools.LOG);
-            tool.setRES_BUNDLE(RipTools.RES_BUNDLE);
+            tool.setUserProperties(RipTools.UP());
+            tool.setLOG(RipTools.LOG());
+            tool.setRES_BUNDLE(RipTools.RB());
         }
         toolsTabs.add(tool.getName(), tool.getUserInterface(this));
     }
@@ -61,8 +60,8 @@ public class RipToolsMaster_view extends JFrame {
 
     private void buildUi() {
         setIconImage(IconDictionary.APP_ICON);
-        setTitle(RipTools.RES_BUNDLE.getString("APPLICATION_IDENTITY") +
-                " " + RipTools.RES_BUNDLE.getString("VERSION_VALUE"));
+        setTitle(RipTools.RB().getString("APPLICATION_IDENTITY") +
+                " " + RipTools.RB().getString("VERSION_VALUE"));
         
         toolsTabs = new JTabbedPane();
         if (tools != null && tools.size() > 0) {
@@ -78,26 +77,26 @@ public class RipToolsMaster_view extends JFrame {
     }
     
     public void loadProperties() {
-        RipTools.LOG.debug("Load user properties");
+        RipTools.LOG().debug("Load user properties");
         defaultWindowHeight = PropertiesHelper.getIntegerFromProperties(
-                RipTools.USER_PROPERTIES, "defaultWindowHeight", defaultWindowHeight);
+                RipTools.UP(), "defaultWindowHeight", defaultWindowHeight);
         defaultWindowWidth = PropertiesHelper.getIntegerFromProperties(
-                RipTools.USER_PROPERTIES, "defaultWindowWidth", defaultWindowWidth);
+                RipTools.UP(), "defaultWindowWidth", defaultWindowWidth);
         defaultWindowPosX = PropertiesHelper.getIntegerFromProperties(
-                RipTools.USER_PROPERTIES, "defaultWindowPosX", defaultWindowPosX);
+                RipTools.UP(), "defaultWindowPosX", defaultWindowPosX);
         defaultWindowPosY = PropertiesHelper.getIntegerFromProperties(
-                RipTools.USER_PROPERTIES, "defaultWindowPosY", defaultWindowPosY);
+                RipTools.UP(), "defaultWindowPosY", defaultWindowPosY);
         defaultWindowExtendedState = PropertiesHelper.getIntegerFromProperties(
-                RipTools.USER_PROPERTIES, "defaultWindowExtendedState");
+                RipTools.UP(), "defaultWindowExtendedState");
     }
     
     public void saveProperties() {
-        RipTools.LOG.debug("Save user properties");
-        RipTools.USER_PROPERTIES.setProperty("defaultWindowHeight", Integer.toString(getSize().height));
-        RipTools.USER_PROPERTIES.setProperty("defaultWindowWidth", Integer.toString(getSize().width));
-        RipTools.USER_PROPERTIES.setProperty("defaultWindowPosX", Integer.toString(getLocation().x));
-        RipTools.USER_PROPERTIES.setProperty("defaultWindowPosY", Integer.toString(getLocation().y));
-        RipTools.USER_PROPERTIES.setProperty("defaultWindowExtendedState", Integer.toString(getExtendedState()));
+        RipTools.LOG().debug("Save user properties");
+        RipTools.UP().setProperty("defaultWindowHeight", Integer.toString(getSize().height));
+        RipTools.UP().setProperty("defaultWindowWidth", Integer.toString(getSize().width));
+        RipTools.UP().setProperty("defaultWindowPosX", Integer.toString(getLocation().x));
+        RipTools.UP().setProperty("defaultWindowPosY", Integer.toString(getLocation().y));
+        RipTools.UP().setProperty("defaultWindowExtendedState", Integer.toString(getExtendedState()));
         if (tools != null) {
             for (Iterator<ITool> iterator = tools.iterator(); iterator.hasNext();) {
                 ITool next = iterator.next();

@@ -19,8 +19,7 @@ import org.y3.riptools.RipTools;
  * <p>Copyright: 2014</p>
  * <p>Organisation: IT-Happens.de</p>
  * @author Christian.Rybotycky
- * @version $Id$
-*/
+ */
 public class NoWinScr_tool extends ITool {
     
     private JPanel jp_ui;
@@ -43,7 +42,7 @@ public class NoWinScr_tool extends ITool {
     @Override
     public JPanel getUserInterface(JFrame root) {
         loadProperties();
-        jcb_enable = new JCheckBox(RipTools.RES_BUNDLE.getString("ENABLE"));
+        jcb_enable = new JCheckBox(RipTools.RB().getString("ENABLE"));
         jcb_enable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,7 +66,7 @@ public class NoWinScr_tool extends ITool {
 
     @Override
     public String getName() {
-        return RipTools.RES_BUNDLE.getString("NO_WIN_SCR_TOOL");
+        return RipTools.RB().getString("NO_WIN_SCR_TOOL");
     }
     
     public void run() {
