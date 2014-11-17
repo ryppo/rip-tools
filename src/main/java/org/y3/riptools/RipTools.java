@@ -43,6 +43,11 @@ public class RipTools extends IApplication {
     public String getResourceBundleLocation() {
         return "org/y3/riptools/riptools";
     }
+    
+    @Override
+    public String getApplicationName() {
+        return "RipTools";
+    }
 
     @Override
     public void prepare() {
