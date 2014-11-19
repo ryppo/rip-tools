@@ -3,25 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.y3.riptools</groupId>
     <artifactId>rip-tools</artifactId>
-    <version>2014.1.0.0-SNAPSHOT</version>
+    <version>2014.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.2</version>
-                </plugin>
-                <plugin>
                     <groupId>com.google.code.maven-replacer-plugin</groupId>
                     <artifactId>replacer</artifactId>
                     <version>1.5.3</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.5</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -34,11 +24,6 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>net.java.dev.designgridlayout</groupId>
-            <artifactId>designgridlayout</artifactId>
-            <version>1.11</version>
-        </dependency>
-        <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
             <version>3.5.2</version>
@@ -48,11 +33,6 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.7</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -219,7 +199,7 @@
                                     <dontwrapjar>false</dontwrapjar>
                                     <headerType>gui</headerType>
                                     <outfile>target/deploy/RipTools.exe</outfile>
-                                    <jar>target/rip_tools-${project.version}.jar</jar>
+                                    <jar>target/${project.name}-${project.version}.jar</jar>
                                     <errtitle>Launcher</errtitle>
                                     <customProcName>true</customProcName>
                                     <classpath>
