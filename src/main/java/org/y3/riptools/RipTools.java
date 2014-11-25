@@ -57,4 +57,8 @@ public class RipTools extends IApplication {
         view.registerTool(new NoWinScr_tool());
     }
 
+    @Override
+    public void beforeShutDown() {
+    }
+
 }
