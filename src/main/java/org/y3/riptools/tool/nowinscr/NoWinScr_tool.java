@@ -104,6 +104,10 @@ public class NoWinScr_tool extends ITool {
 
     @Override
     public void storeUserPropertiesForShutdown() {
+        String durationString = jtf_sleepDuration.getText();
+        if (durationString != null && durationString.length() > 0) {
+            defaultSleepDuration = Integer.parseInt(durationString);
+        }
         getUserProperties().setProperty(PROPERTY_KEY_DEFAULT_SLEEP_DURATION, Integer.toString(defaultSleepDuration));
     }
 

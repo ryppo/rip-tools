@@ -1,5 +1,6 @@
 package org.y3.riptools;
 
+import org.y3.riptools.tool.execbatch.ExecBatch_tool;
 import org.y3.commons.application.IApplication;
 import org.y3.riptools.app.RipToolsMaster_view;
 import org.y3.riptools.tool.nowinscr.NoWinScr_tool;
@@ -14,6 +15,7 @@ import org.y3.riptools.tool.nowinscr.NoWinScr_tool;
 public class RipTools extends IApplication {
     
     private RipToolsMaster_view view;
+    private ITool[] tools;
     
     public RipTools() {
         super();
@@ -51,14 +53,27 @@ public class RipTools extends IApplication {
 
     @Override
     public void prepare() {
+        //setup the tools
+        tools = new ITool[]{
+            new NoWinScr_tool(),
+            new ExecBatch_tool()
+        };
+        //prepare the view
         view = new RipToolsMaster_view();
         view.addWindowListener(getShutDownListener());
         //register provided tools
-        view.registerTool(new NoWinScr_tool());
+        for(ITool tool : tools) {
+            view.registerTool(tool);
+        }
     }
 
     @Override
     public void beforeShutDown() {
+        System.out.println("beforeshutdown");
+        view.saveProperties();
+        for(ITool tool : tools) {
+            tool.storeUserPropertiesForShutdown();
+        }
     }
 
 }
