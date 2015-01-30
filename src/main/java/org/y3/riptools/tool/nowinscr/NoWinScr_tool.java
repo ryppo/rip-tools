@@ -6,6 +6,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 import net.java.dev.designgridlayout.DesignGridLayout;
@@ -25,6 +26,7 @@ public class NoWinScr_tool extends ITool {
     private JPanel jp_ui;
     private JCheckBox jcb_enable;
     private JTextField jtf_sleepDuration;
+    private JProgressBar jpb_sleepProgress;
     
     private SwingWorker<?, ?> worker;
     
@@ -55,11 +57,13 @@ public class NoWinScr_tool extends ITool {
         });
         jtf_sleepDuration = new JTextField();
         jtf_sleepDuration.setText(Integer.toString(defaultSleepDuration));
+        jpb_sleepProgress = new JProgressBar(0, defaultSleepDuration);
         if (jp_ui == null) {
             jp_ui = new JPanel();
             DesignGridLayout layout = new DesignGridLayout(jp_ui);
             layout.row().grid().add(jcb_enable);
-            layout.row().grid(new JLabel(getRES_BUNDLE().getString("DEFAULT_SLEEP_DURATION"))).add(jtf_sleepDuration);
+            layout.row().grid().add(new JLabel(getRES_BUNDLE().getString("DEFAULT_SLEEP_DURATION"))).add(jtf_sleepDuration);
+            layout.row().grid().add(jpb_sleepProgress);
         }
         return jp_ui;
     }
@@ -74,6 +78,8 @@ public class NoWinScr_tool extends ITool {
         String durationString = jtf_sleepDuration.getText();
         if (durationString != null && durationString.length() > 0) {
             defaultSleepDuration = Integer.parseInt(durationString);
+            jpb_sleepProgress.setMaximum(defaultSleepDuration);
+            jpb_sleepProgress.setValue(0);
         }
         worker = new SwingWorker<Void, Integer>() {
             
@@ -82,7 +88,7 @@ public class NoWinScr_tool extends ITool {
             @Override
             protected Void doInBackground() throws InterruptedException {
                 try {
-                    idler = new Win32IdleTime(getLOG(), defaultSleepDuration);
+                    idler = new Win32IdleTime(getLOG(), defaultSleepDuration, jpb_sleepProgress);
                 } catch (Exception ex) {
                     getLOG().error("Run win32idletimer failed", ex);
                 }

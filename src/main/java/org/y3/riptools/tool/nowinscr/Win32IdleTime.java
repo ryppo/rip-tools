@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JProgressBar;
 import org.apache.log4j.Logger;
 
 /**
@@ -68,8 +69,11 @@ public class Win32IdleTime {
      enum State {
          UNKNOWN, ONLINE, IDLE, AWAY
      };
+     
+    private JProgressBar jpb_sleepProgress;
 
-    public Win32IdleTime(Logger LOG, int sleepDuration) throws Exception {
+    public Win32IdleTime(Logger LOG, int sleepDuration, JProgressBar _jpb_sleepProgress) throws Exception {
+        jpb_sleepProgress = _jpb_sleepProgress;
         if (!System.getProperty("os.name").contains("Windows")) {
             LOG.error("Only implemented on Windows");
         } else {
@@ -83,9 +87,19 @@ public class Win32IdleTime {
                         = idleSec < 30 ? State.ONLINE
                                 : idleSec > 5 * 60 ? State.AWAY : State.IDLE;
 
+                //update the progress bar
+                //wake up for activity or just to update the progress bar
+                if (jpb_sleepProgress.getValue() == sleepDuration) {
+                   jpb_sleepProgress.setValue(0);
+                } else {
+                    jpb_sleepProgress.setValue(jpb_sleepProgress.getValue() + sleepDuration / 10);
+                }
+
+                
                 if (newState != state) {
                     state = newState;
                    LOG.info(dateFormat.format(new Date()) + " # " + state);
+                   
                  //
                     // just for fun, if the state is IDLE (screensaver counter runs!)
                     // we move the mouse wheel using java.awt.Robot just a little bit to change
@@ -117,7 +131,7 @@ public class Win32IdleTime {
                     }
                 }
                 try {
-                    Thread.sleep(sleepDuration);
+                    Thread.sleep(sleepDuration / 10);
                 } catch (Exception ex) {
                 }
             }
