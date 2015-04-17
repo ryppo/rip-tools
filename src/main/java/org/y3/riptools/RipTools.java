@@ -1,9 +1,10 @@
 package org.y3.riptools;
 
-import org.y3.riptools.tool.execbatch.ExecBatch_tool;
 import org.y3.commons.application.IApplication;
 import org.y3.riptools.app.RipToolsMaster_view;
+import org.y3.riptools.tool.execbatch.ExecBatch_tool;
 import org.y3.riptools.tool.nowinscr.NoWinScr_tool;
+import org.y3.riptools.tool.text.Text_tool;
 
 /** 
  * <p>Title: org.y3.riptools.rip_tools - RipTools</p>
@@ -56,7 +57,8 @@ public class RipTools extends IApplication {
         //setup the tools
         tools = new ITool[]{
             new NoWinScr_tool(),
-            new ExecBatch_tool()
+            new ExecBatch_tool(),
+            new Text_tool()
         };
         //prepare the view
         view = new RipToolsMaster_view();
