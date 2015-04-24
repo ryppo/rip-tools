@@ -3,6 +3,9 @@ package org.y3.riptools.tool.nowinscr;
 import com.sun.jna.Native;
 import com.sun.jna.Structure;
 import com.sun.jna.win32.StdCallLibrary;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -113,9 +116,13 @@ public class Win32IdleTime {
 //                     robot.mouseMove(point.x-1, point.y-1);
 //                     robot.mouseMove(point.x, point.y);
                         LOG.info("Activate the mouse wheel to change idle state!");
-//                     mouse scroll
-                        robot.mouseWheel(-1);
-                        robot.mouseWheel(1);
+//                     mouse move
+                        PointerInfo pi = MouseInfo.getPointerInfo();
+                        Point p = pi.getLocation();
+                        int x = (int) p.getX();
+                        int y = (int) p.getY();
+                        robot.mouseMove(x+1, y+1);
+                        robot.mouseMove(x, y);
                     }
 
                  //
