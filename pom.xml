@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.y3.riptools</groupId>
     <artifactId>rip-tools</artifactId>
-    <version>2015.2.1</version>
+    <version>2015.2.2</version>
     <packaging>jar</packaging>
     <build>
         <pluginManagement>

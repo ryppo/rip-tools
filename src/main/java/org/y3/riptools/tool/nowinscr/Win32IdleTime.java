@@ -75,7 +75,7 @@ public class Win32IdleTime {
      
     private JProgressBar jpb_sleepProgress;
 
-    public Win32IdleTime(Logger LOG, int sleepDuration, JProgressBar _jpb_sleepProgress) throws Exception {
+    public Win32IdleTime(Logger LOG, int sleepDuration, JProgressBar _jpb_sleepProgress, int mouseMovePixels) throws Exception {
         jpb_sleepProgress = _jpb_sleepProgress;
         if (!System.getProperty("os.name").contains("Windows")) {
             LOG.error("Only implemented on Windows");
@@ -121,7 +121,7 @@ public class Win32IdleTime {
                         Point p = pi.getLocation();
                         int x = (int) p.getX();
                         int y = (int) p.getY();
-                        robot.mouseMove(x+1, y+1);
+                        robot.mouseMove(x+mouseMovePixels, y+mouseMovePixels);
                         robot.mouseMove(x, y);
                     }
 

@@ -25,20 +25,24 @@ public class NoWinScr_tool extends ITool {
     
     private JPanel jp_ui;
     private JCheckBox jcb_enable;
-    private JTextField jtf_sleepDuration;
+    private JTextField jtf_sleepDuration, jtf_mouseMovePixels;
     private JProgressBar jpb_sleepProgress;
     
     private SwingWorker<?, ?> worker;
     
     private int defaultSleepDuration = 1000;
+    private int defaultMouseMovePixels = 5;
     private final String PROPERTY_KEY_DEFAULT_SLEEP_DURATION = "defaultSleepDuration";
+    private final String PROPERTY_KEY_DEFAULT_MOUSE_MOVE_PIXELS = "defaultMouseMovePixels";
     
     public NoWinScr_tool() {
     }
     
     private void loadProperties() {
-        String property = getUserProperties().getProperty(PROPERTY_KEY_DEFAULT_SLEEP_DURATION);
-        defaultSleepDuration = NumberUtils.toInt(property, defaultSleepDuration);
+        String property_defaultSleepDuration = getUserProperties().getProperty(PROPERTY_KEY_DEFAULT_SLEEP_DURATION);
+        defaultSleepDuration = NumberUtils.toInt(property_defaultSleepDuration, defaultSleepDuration);
+        String property_defaultMouseMovePixels = getUserProperties().getProperty(PROPERTY_KEY_DEFAULT_MOUSE_MOVE_PIXELS);
+        defaultMouseMovePixels = NumberUtils.toInt(property_defaultMouseMovePixels, defaultMouseMovePixels);
     }
 
     @Override
@@ -57,12 +61,15 @@ public class NoWinScr_tool extends ITool {
         });
         jtf_sleepDuration = new JTextField();
         jtf_sleepDuration.setText(Integer.toString(defaultSleepDuration));
+        jtf_mouseMovePixels = new JTextField();
+        jtf_mouseMovePixels.setText(Integer.toString(defaultMouseMovePixels));
         jpb_sleepProgress = new JProgressBar(0, defaultSleepDuration);
         if (jp_ui == null) {
             jp_ui = new JPanel();
             DesignGridLayout layout = new DesignGridLayout(jp_ui);
             layout.row().grid().add(jcb_enable);
             layout.row().grid().add(new JLabel(getRES_BUNDLE().getString("DEFAULT_SLEEP_DURATION"))).add(jtf_sleepDuration);
+            layout.row().grid().add(new JLabel(getRES_BUNDLE().getString("DEFAULT_MOUSE_MOVE_PIXELS"))).add(jtf_mouseMovePixels);
             layout.row().grid().add(jpb_sleepProgress);
         }
         return jp_ui;
@@ -80,6 +87,8 @@ public class NoWinScr_tool extends ITool {
             defaultSleepDuration = Integer.parseInt(durationString);
             jpb_sleepProgress.setMaximum(defaultSleepDuration);
             jpb_sleepProgress.setValue(0);
+            String mouseMoveString = jtf_mouseMovePixels.getText();
+            defaultMouseMovePixels = Integer.parseInt(mouseMoveString);
         }
         worker = new SwingWorker<Void, Integer>() {
             
@@ -88,7 +97,7 @@ public class NoWinScr_tool extends ITool {
             @Override
             protected Void doInBackground() throws InterruptedException {
                 try {
-                    idler = new Win32IdleTime(getLOG(), defaultSleepDuration, jpb_sleepProgress);
+                    idler = new Win32IdleTime(getLOG(), defaultSleepDuration, jpb_sleepProgress, defaultMouseMovePixels);
                 } catch (Exception ex) {
                     getLOG().error("Run win32idletimer failed", ex);
                 }
@@ -115,6 +124,11 @@ public class NoWinScr_tool extends ITool {
             defaultSleepDuration = Integer.parseInt(durationString);
         }
         getUserProperties().setProperty(PROPERTY_KEY_DEFAULT_SLEEP_DURATION, Integer.toString(defaultSleepDuration));
+        String mouseMoveString = jtf_mouseMovePixels.getText();
+        if (mouseMoveString != null && mouseMoveString.length() > 0) {
+            defaultMouseMovePixels = Integer.parseInt(mouseMoveString);
+        }
+        getUserProperties().setProperty(PROPERTY_KEY_DEFAULT_MOUSE_MOVE_PIXELS, Integer.toString(defaultMouseMovePixels));
     }
 
 }
