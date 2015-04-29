@@ -74,8 +74,14 @@ public class Win32IdleTime {
      };
      
     private JProgressBar jpb_sleepProgress;
+    private boolean run = true;
+    
+    public void stop() {
+        run = false;
+    }
 
     public Win32IdleTime(Logger LOG, int sleepDuration, JProgressBar _jpb_sleepProgress, int mouseMovePixels) throws Exception {
+        boolean moveForward = true;
         jpb_sleepProgress = _jpb_sleepProgress;
         if (!System.getProperty("os.name").contains("Windows")) {
             LOG.error("Only implemented on Windows");
@@ -83,11 +89,11 @@ public class Win32IdleTime {
             State state = State.UNKNOWN;
             DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
 
-            for (;;) {
+            while (run) {
                 int idleSec = getIdleTimeMillisWin32() / 1000;
 
                 State newState
-                        = idleSec < 30 ? State.ONLINE
+                        = idleSec < (sleepDuration/1000) ? State.ONLINE
                                 : idleSec > 5 * 60 ? State.AWAY : State.IDLE;
 
                 //update the progress bar
@@ -115,14 +121,20 @@ public class Win32IdleTime {
 //                     Point point = MouseInfo.getPointerInfo().getLocation();
 //                     robot.mouseMove(point.x-1, point.y-1);
 //                     robot.mouseMove(point.x, point.y);
-                        LOG.info("Activate the mouse wheel to change idle state!");
+                        LOG.info("Activate the mouse to change idle state!");
 //                     mouse move
                         PointerInfo pi = MouseInfo.getPointerInfo();
                         Point p = pi.getLocation();
                         int x = (int) p.getX();
                         int y = (int) p.getY();
-                        robot.mouseMove(x+mouseMovePixels, y+mouseMovePixels);
-                        robot.mouseMove(x, y);
+                        if (moveForward) {
+                            robot.mouseMove(x+mouseMovePixels, y+mouseMovePixels);
+                            moveForward = false;
+                        } else {
+                            robot.mouseMove(x-mouseMovePixels, y-mouseMovePixels);
+                            moveForward = true;
+                        }
+                        //robot.mouseMove(x, y);
                     }
 
                  //

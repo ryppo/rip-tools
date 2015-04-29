@@ -100,12 +100,15 @@ public class NoWinScr_tool extends ITool {
                     idler = new Win32IdleTime(getLOG(), defaultSleepDuration, jpb_sleepProgress, defaultMouseMovePixels);
                 } catch (Exception ex) {
                     getLOG().error("Run win32idletimer failed", ex);
+                    idler.stop();
+                    done();
                 }
-             return null;
+                return null;
                 }
             
             @Override
             public void done() {
+                getLOG().info("Run win32idletimer stopped");
                 idler = null;
             }
         };
@@ -115,6 +118,8 @@ public class NoWinScr_tool extends ITool {
     public void stop() {
         getLOG().info("Shut down win32ideltimer");
         worker.cancel(true);
+        worker = null;
+        
     }
 
     @Override
