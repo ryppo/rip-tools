@@ -135,6 +135,8 @@ public class Win32IdleTime {
                             moveForward = true;
                         }
                         //robot.mouseMove(x, y);
+                        robot.mouseWheel(-1);
+                        robot.mouseWheel(1);
                     }
 
                  //

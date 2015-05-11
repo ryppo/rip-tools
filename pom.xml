@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.y3.riptools</groupId>
     <artifactId>rip-tools</artifactId>
-    <version>2015.2.3</version>
+    <version>2015.2.4</version>
     <packaging>jar</packaging>
     <build>
         <pluginManagement>
@@ -17,7 +17,7 @@
         </pluginManagement>
     </build>
     <properties>
-        <riptools.final.version>2015.2.3.0</riptools.final.version>
+        <riptools.final.version>2015.2.4.0</riptools.final.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
