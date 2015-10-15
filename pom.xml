@@ -42,7 +42,7 @@
         <dependency>
             <groupId>org.y3.commons</groupId>
             <artifactId>y3-commons</artifactId>
-            <version>2015.1.0-SNAPSHOT</version>
+            <version>2015.1.0</version>
         </dependency>
     </dependencies>
     <profiles>
