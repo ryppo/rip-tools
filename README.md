@@ -1,6 +1,8 @@
 # rip-tools
 Application to support user in computer activities - MS Windows orientated.
 
+* current version is hosted on bitbucket
+
 ## Package
 * The build process (maven-based) deploys a single folder 'deploy' which contains all files to execute the application.
 * JRE is included, too.
